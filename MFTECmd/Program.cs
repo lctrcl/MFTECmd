@@ -2109,11 +2109,17 @@ namespace MFTECmd
                     //sometimes bad chars show up
                 }
 
-                if (adsinfo.Name == "Zone.Identifier")
+                if ((adsinfo.Name == "Zone.Identifier") ^ (adsinfo.Name == "Avecto.Zone.Identifier"))
                 {
+
                     if (adsinfo.ResidentData != null)
                     {
-                        mftr.ZoneIdContents = Encoding.Unicode.GetString(adsinfo.ResidentData.Data);
+                        if (adsinfo.Name == "Avecto.Zone.Identifier") {
+                            mftr.ZoneIdContents = Encoding.ASCII.GetString(adsinfo.ResidentData.Data);
+                        }
+                        else {
+                            mftr.ZoneIdContents = Encoding.ASCII.GetString(adsinfo.ResidentData.Data);
+                        }
                     }
                     else
                     {
